@@ -321,10 +321,10 @@ Papamamap.prototype.getPopupTitle = function(feature)
     var title = '';
     var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
     title  = '[' + type + '] ';
-    var owner = feature.get('設置') ? feature.get('設置') : feature.get('Ownership');
-    if(owner !== undefined && owner !== null && owner !== "") {
-        title += ' [' + owner +']';
-    }
+    //◇ var owner = feature.get('設置') ? feature.get('設置') : feature.get('Ownership');
+    //◇ if(owner !== undefined && owner !== null && owner !== "") {
+    //◇     title += ' [' + owner +']';
+    //◇ }
     var name = feature.get('名称') ? feature.get('名称') : feature.get('Name');
     title += name;
     url = feature.get('url');
@@ -448,13 +448,13 @@ Papamamap.prototype.getPopupContent = function(feature)
         content += '<td>' + add1 + '</td>';
         content += '</tr>';
     }
-    var owner = feature.get('設置者') ? feature.get('設置者') : feature.get('Owner');
-    if (owner !== undefined && owner !== null) {
-        content += '<tr>';
-        content += '<th>設置者</th>';
-        content += '<td>' + owner + '</td>';
-        content += '</tr>';
-    }
+    //◇ var owner = feature.get('設置者') ? feature.get('設置者') : feature.get('Owner');
+    //◇ if (owner !== undefined && owner !== null) {
+    //◇     content += '<tr>';
+    //◇     content += '<th>設置者</th>';
+    //◇     content += '<td>' + owner + '</td>';
+    //◇     content += '</tr>';
+    //◇ }
     content += '</tbody></table>';
     return content;
 };
