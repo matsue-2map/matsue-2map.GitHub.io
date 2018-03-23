@@ -385,18 +385,20 @@ Papamamap.prototype.getPopupContent = function(feature)
         content += '</tr>';
     }
 
-    var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
-    if(type == "認可外") {
-        content += '<tr>';
-        content += '<th>監督基準</th>';
-        content += '<td>';
-        var proof = feature.get('証明') ? feature.get('証明') : feature.get('Proof');
-        if (proof !== undefined && proof !== null) {
-            content += '証明書発行済<a href="http://www.city.sapporo.jp/kodomo/kosodate/ninkagai_shisetsu.html" target="_blank">(詳細)</a>';
-        }
-        content += '</td>';
-        content += '</tr>';
-    }
+    //◇ 証明書は使用しない
+    //◇ var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
+    //◇ if(type == "認可外") {
+    //◇     content += '<tr>';
+    //◇     content += '<th>監督基準</th>';
+    //◇     content += '<td>';
+    //◇     var proof = feature.get('証明') ? feature.get('証明') : feature.get('Proof');
+    //◇     if (proof !== undefined && proof !== null) {
+    //◇         content += '証明書発行済<a href="http://www.city.sapporo.jp/kodomo/kosodate/ninkagai_shisetsu.html" target="_blank">(詳細)</a>';
+    //◇     }
+    //◇      content += '</td>';
+    //◇     content += '</tr>';
+    //◇ }
+
     if(type == "認可保育所") {
         content += '<tr>';
         content += '<th>欠員</th>';
