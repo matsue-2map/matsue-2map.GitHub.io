@@ -395,7 +395,7 @@ Papamamap.prototype.getPopupContent = function(feature)
     }
 
     //◇ 証明書は使用しない
-    //◇ var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
+    var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
     //◇ if(type == "認可外") {
     //◇     content += '<tr>';
     //◇     content += '<th>監督基準</th>';
