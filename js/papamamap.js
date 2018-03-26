@@ -561,7 +561,8 @@ Papamamap.prototype.getLayerName = function(cbName)
 Papamamap.prototype.switchLayer = function(layerName, visible) {
     var _layerName = this.getLayerName(layerName.substr(2));
     this.map.getLayers().forEach(function(layer) {
-        if (layer.get('name') == _layerName) {
+        //◇ if (layer.get('name') == _layerName) {
+        if (layer.get('Label') == _layerName) {
             layer.setVisible(visible);
         }
     });
