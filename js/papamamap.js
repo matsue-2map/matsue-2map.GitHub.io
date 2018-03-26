@@ -252,6 +252,9 @@ Papamamap.prototype.getLayer = function(layerName)
 {
     result = null;
     this.map.getLayers().forEach(function(layer) {
+
+        window.alert('③' + layer.get('name') + '：' + layerName);
+
         if (layer.get('name') == layerName) {
             result = layer;
         }
@@ -567,6 +570,9 @@ Papamamap.prototype.switchLayer = function(layerName, visible) {
     var _layerName = this.getLayerName(layerName.substr(2));
     this.map.getLayers().forEach(function(layer) {
         //◇ if (layer.get('name') == _layerName) {
+
+        window.alert('④' + layer.get('Label') + '：' + _layerName);
+
         if (layer.get('Label') == _layerName) {
             layer.setVisible(visible);
         }
