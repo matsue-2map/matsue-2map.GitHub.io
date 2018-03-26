@@ -325,7 +325,8 @@ Papamamap.prototype.getPopupTitle = function(feature)
     //◇ if(owner !== undefined && owner !== null && owner !== "") {
     //◇     title += ' [' + owner +']';
     //◇ }
-    var name = feature.get('名称') ? feature.get('名称') : feature.get('Name');
+    //◇ var name = feature.get('名称') ? feature.get('名称') : feature.get('Name');
+    var name = feature.get('名称') ? feature.get('名称') : feature.get('Label');
     title += name;
     url = feature.get('url');
     if(url !== null && url !='') {
