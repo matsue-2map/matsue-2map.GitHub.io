@@ -108,6 +108,9 @@ Papamamap.prototype.generate = function(mapServerListItem)
 Papamamap.prototype.switchLayer = function(layerName, visible)
 {
     this.map.getLayers().forEach(function(layer) {
+
+        window.alert('①' + layer.get('name') + '：' + layerName);
+
         if (layer.get('name') == layerName) {
             layer.setVisible(visible);
         }
@@ -268,6 +271,8 @@ Papamamap.prototype.moveToSelectItem = function(mapServerListItem)
     if(mapServerListItem.coordinates !== undefined) {
         // 区の境界線に合わせて画面表示
         components = [];
+        //◇293 name: mapServerListItem.name,
+
         for(var i=0; i<mapServerListItem.coordinates.length; i++) {
             coord = mapServerListItem.coordinates[i];
             pt2coo = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
@@ -285,7 +290,7 @@ Papamamap.prototype.moveToSelectItem = function(mapServerListItem)
         this.map.beforeRender(pan);
 
         feature = new ol.Feature({
-            name: mapServerListItem.name,
+            name: mapServerListItem.label,
             geometry: polygon
         });
         layer = this.getLayer(this.getLayerName("Circle"));
