@@ -274,7 +274,6 @@ Papamamap.prototype.moveToSelectItem = function(mapServerListItem)
     if(mapServerListItem.coordinates !== undefined) {
         // 区の境界線に合わせて画面表示
         components = [];
-        //◇293 name: mapServerListItem.name,
 
         for(var i=0; i<mapServerListItem.coordinates.length; i++) {
             coord = mapServerListItem.coordinates[i];
@@ -293,7 +292,7 @@ Papamamap.prototype.moveToSelectItem = function(mapServerListItem)
         this.map.beforeRender(pan);
 
         feature = new ol.Feature({
-            name: mapServerListItem.label,
+            name: mapServerListItem.name,
             geometry: polygon
         });
         layer = this.getLayer(this.getLayerName("Circle"));
@@ -569,11 +568,10 @@ Papamamap.prototype.getLayerName = function(cbName)
 Papamamap.prototype.switchLayer = function(layerName, visible) {
     var _layerName = this.getLayerName(layerName.substr(2));
     this.map.getLayers().forEach(function(layer) {
-        //◇ if (layer.get('name') == _layerName) {
 
         window.alert('④' + layer.get('Label') + '：' + _layerName);
 
-        if (layer.get('Label') == _layerName) {
+        if (layer.get('name') == _layerName) {
             layer.setVisible(visible);
         }
     });
