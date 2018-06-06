@@ -108,9 +108,6 @@ Papamamap.prototype.generate = function(mapServerListItem)
 Papamamap.prototype.switchLayer = function(layerName, visible)
 {
     this.map.getLayers().forEach(function(layer) {
-
-        window.alert('①' + layer.get('name') + '：' + layerName);
-
         if (layer.get('name') == layerName) {
             layer.setVisible(visible);
         }
@@ -252,9 +249,6 @@ Papamamap.prototype.getLayer = function(layerName)
 {
     result = null;
     this.map.getLayers().forEach(function(layer) {
-
-        window.alert('③' + layer.get('name') + '：' + layerName);
-
         if (layer.get('name') == layerName) {
             result = layer;
         }
@@ -274,7 +268,6 @@ Papamamap.prototype.moveToSelectItem = function(mapServerListItem)
     if(mapServerListItem.coordinates !== undefined) {
         // 区の境界線に合わせて画面表示
         components = [];
-
         for(var i=0; i<mapServerListItem.coordinates.length; i++) {
             coord = mapServerListItem.coordinates[i];
             pt2coo = ol.proj.transform(coord, 'EPSG:4326', 'EPSG:3857');
@@ -328,12 +321,11 @@ Papamamap.prototype.getPopupTitle = function(feature)
     var title = '';
     var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
     title  = '[' + type + '] ';
-    //◇ var owner = feature.get('設置') ? feature.get('設置') : feature.get('Ownership');
-    //◇ if(owner !== undefined && owner !== null && owner !== "") {
-    //◇     title += ' [' + owner +']';
-    //◇ }
-    //◇ var name = feature.get('名称') ? feature.get('名称') : feature.get('Name');
-    var name = feature.get('名称') ? feature.get('名称') : feature.get('Label');
+    var owner = feature.get('設置') ? feature.get('設置') : feature.get('Ownership');
+    if(owner !== undefined && owner !== null && owner !== "") {
+        title += ' [' + owner +']';
+    }
+    var name = feature.get('名称') ? feature.get('名称') : feature.get('Name');
     title += name;
     url = feature.get('url');
     if(url !== null && url !='') {
@@ -393,20 +385,18 @@ Papamamap.prototype.getPopupContent = function(feature)
         content += '</tr>';
     }
 
-    //◇ 証明書は使用しない
     var type = feature.get('種別') ? feature.get('種別') : feature.get('Type');
-    //◇ if(type == "認可外") {
-    //◇     content += '<tr>';
-    //◇     content += '<th>監督基準</th>';
-    //◇     content += '<td>';
-    //◇     var proof = feature.get('証明') ? feature.get('証明') : feature.get('Proof');
-    //◇     if (proof !== undefined && proof !== null) {
-    //◇         content += '証明書発行済<a href="http://www.city.sapporo.jp/kodomo/kosodate/ninkagai_shisetsu.html" target="_blank">(詳細)</a>';
-    //◇     }
-    //◇      content += '</td>';
-    //◇     content += '</tr>';
-    //◇ }
-
+    if(type == "認可外") {
+        content += '<tr>';
+        content += '<th>監督基準</th>';
+        content += '<td>';
+        var proof = feature.get('証明') ? feature.get('証明') : feature.get('Proof');
+        if (proof !== undefined && proof !== null) {
+            content += '証明書発行済<a href="http://www.city.sapporo.jp/kodomo/kosodate/ninkagai_shisetsu.html" target="_blank">(詳細)</a>';
+        }
+        content += '</td>';
+        content += '</tr>';
+    }
     if(type == "認可保育所") {
         content += '<tr>';
         content += '<th>欠員</th>';
@@ -414,7 +404,7 @@ Papamamap.prototype.getPopupContent = function(feature)
         var vacancy = feature.get('Vacancy') ? feature.get('Vacancy') : feature.get('Vacancy');
         if (vacancy !== undefined && vacancy !== null) {
             /**content += '<a href="http://www.city.sapporo.jp/kodomo/kosodate/l4_01.html" target="_blank">空きあり</a>'; */
-            content += '<a href="http://www1.city.matsue.shimane.jp/kyouiku/hoiku/hoyoukodomo/hoikusho/29nennyuusyokanoujidousuu.html" target="_blank">空きあり</a>';
+            content += '<a href="http://www1.city.matsue.shimane.jp/kyouiku/hoiku/hoyoukodomo/hoikusho/H30nyusyokanouwaku.html" target="_blank">空きあり</a>';
         }
         var vacancyDate = feature.get('VacancyDate');
         if (vacancyDate !== undefined && vacancyDate !== null) {
@@ -447,22 +437,22 @@ Papamamap.prototype.getPopupContent = function(feature)
         content += '</tr>';
     }
     var add1 = feature.get('住所１') ? feature.get('住所１') : feature.get('Add1');
-   //◇ var add2 = feature.get('住所２') ? feature.get('住所２') : feature.get('Add2');
-   //◇ if (add1 !== undefined && add2 !== undefined) {
+    // ◇ var add2 = feature.get('住所２') ? feature.get('住所２') : feature.get('Add2');
+    // ◇ if (add1 !== undefined && add2 !== undefined) {
     if (add1 !== undefined) {
         content += '<tr>';
         content += '<th>住所</th>';
-        //◇ content += '<td>' + add1 + add2 +'</td>';
-        content += '<td>' + add1 + '</td>';
+        // ◇ content += '<td>' + add1 + add2 +'</td>';
+        content += '<td>' + add1 +'</td>';
         content += '</tr>';
     }
-    //◇ var owner = feature.get('設置者') ? feature.get('設置者') : feature.get('Owner');
-    //◇ if (owner !== undefined && owner !== null) {
-    //◇     content += '<tr>';
-    //◇     content += '<th>設置者</th>';
-    //◇     content += '<td>' + owner + '</td>';
-    //◇     content += '</tr>';
-    //◇ }
+    var owner = feature.get('設置者') ? feature.get('設置者') : feature.get('Owner');
+    if (owner !== undefined && owner !== null) {
+        content += '<tr>';
+        content += '<th>設置者</th>';
+        content += '<td>' + owner + '</td>';
+        content += '</tr>';
+    }
     content += '</tbody></table>';
     return content;
 };
@@ -568,9 +558,6 @@ Papamamap.prototype.getLayerName = function(cbName)
 Papamamap.prototype.switchLayer = function(layerName, visible) {
     var _layerName = this.getLayerName(layerName.substr(2));
     this.map.getLayers().forEach(function(layer) {
-
-        window.alert('④' + layer.get('Label') + '：' + _layerName);
-
         if (layer.get('name') == _layerName) {
             layer.setVisible(visible);
         }
