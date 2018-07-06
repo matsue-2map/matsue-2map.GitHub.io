@@ -42,7 +42,8 @@ ol.source.BingMaps = function(options) {
    */
   this.culture_ = goog.isDef(options.culture) ? options.culture : 'en-us';
 
-  var protocol = ol.IS_HTTPS ? 'https:' : 'http:';
+  //◇ 20180706 var protocol = ol.IS_HTTPS ? 'https:' : 'http:';
+  var protocol = 'https:';
   var uri = new goog.Uri(
       protocol + '//dev.virtualearth.net/REST/v1/Imagery/Metadata/' +
       options.imagerySet);
